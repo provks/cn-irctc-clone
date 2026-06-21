@@ -2,13 +2,11 @@ import trainImg from '../assets/train1.jpg';
 import { FaCalendarAlt, FaExchangeAlt, FaSuitcase, FaTrain } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import styles from '../styles/Home.module.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+
 
 function Home() {
   return (
     <>
-        <Navbar />
         {/*  Background image of a train */}
         <div className={styles.background}>
             <img src={trainImg} alt="Train image" className={styles.trainImage} />
@@ -93,7 +91,6 @@ function Home() {
                 </form>
             </div>
         </div>
-        <Footer />
 
     </>
   )
