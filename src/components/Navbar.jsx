@@ -15,6 +15,16 @@ function Navbar() {
         setIsLoggedIn(true);
     }
 
+    // handle click on bookings link
+    // const handleBookingsClick = (e) => {
+    //     if (!isLoggedIn) {
+    //         e.preventDefault();
+    //         alert("Please login to view your bookings.");
+    //     }
+    //     // navigate to bookings page if logged in
+
+    // }
+
   return (
     <>
         <nav className={styles.navbar}>
@@ -27,8 +37,9 @@ function Navbar() {
 
             {/* Navigation links */}
             <div className={styles.navLinks}>
-                <a href="/bookings" className={styles.navLink}>Bookings</a>
-                <a href="/contact" className={styles.navLink}>Contact US</a>
+                <a href="/booking" className={styles.navLink}>Bookings</a>
+                {/* <span className={styles.navLink} onClick={handleBookingsClick}>Bookings</span> */}
+                <a href="/contact" className={styles.navLink} >Contact US</a>
             </div>
 
             {/* Show date and time */}
