@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes, useLocation } from "react-router"
+import { Route, BrowserRouter, Routes, useLocation, useNavigate } from "react-router"
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
@@ -11,9 +11,7 @@ import RegisterModal from "./pages/RegisterModal"
 const RouteContentManager = () => {
   // get the current path from the route path
   const location = useLocation();
-  console.log("Current path:", location); // Log the current path to the console for debugging
-
-  console.log("Current path:", location.pathname); // Log the current path to the console for debugging
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -21,7 +19,12 @@ const RouteContentManager = () => {
         <Route path="/" element={<Home />} />
         <Route path="/bookings" element={<BookingPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<LoginModal isOpen={true} />} />
+        <Route path="/login" element={<LoginModal 
+        isOpen={true}
+        onClose={() => navigate(-1)}
+        // onLogin={() => {}}
+        switchToRegister={() => {}}
+         />} />
         <Route path="/register" element={<RegisterModal />} />
       </Routes>
     </div>

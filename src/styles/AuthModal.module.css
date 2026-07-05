@@ -1,0 +1,135 @@
+/*  Modal Overlay (Background) */
+/* The overlay covers the entire screen when the modal is open */
+.overlay {
+    position: fixed;  /* Stays in place when scrolling */
+    top: 0;           /* Starts from the top */
+    left: 0;          /* Starts from the left */
+    width: 100%;      /* Covers the entire width of the viewport */
+    height: 100%;     /* Covers the entire height of the viewport */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;    /* Centers the modal using flexbox */
+    justify-content: center; /* Horizontally center modal */
+    align-items: center; /* Vertically center modal */
+    opacity: 0;       /* Initially hidden */
+    visibility: hidden; /* Hidden by default */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition effect */
+    z-index: 9999;    /* Ensures it appears above all other content */
+}
+/* Show modal when active */
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Modal Box (Container) */
+.modal {
+    background: white;  /* White background for the modal */
+    padding: 25px;      /* Spacing inside the modal */
+    border-radius: 10px; /* Rounded corners for a smooth UI */
+    width: 350px;       /* Fixed width for consistency */
+    text-align: center; /* Centered text alignment */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for a floating effect */
+    position: relative; /* Allows absolute positioning inside */
+}
+
+
+/* Close button styling */
+.closeBtn {
+    position: absolute;  /* Positioned inside the modal */
+    right: 10px;        /* Distance from the right */
+    top: 10px;         /* Distance from the top */
+    background: none;   /* No background color */
+    border: none;       /* No border */
+    font-size: 20px;    /* Bigger size for easy clicking */
+    font-weight: bold;  /* Bold text */
+    cursor: pointer;    /* Pointer cursor to indicate it's clickable */
+    color: #666;       /* Dark grey color */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Makes it a circular button */
+    transition: all 0.3s ease;
+    padding: 0;
+    line-height: 1;
+}
+/* Hover effect on the close button */
+.closeBtn:hover {
+    background-color: #f0f0f0; /* Light grey background */
+    color: #333; /* Darker text */
+}
+
+
+/*   Input Fields (Email, Password, etc.) */
+/* Common styling for input fields */
+.modal input {
+    width: 100%;        /* Takes full width of the modal */
+    padding: 10px;      /* Comfortable padding */
+    margin: 10px 0;     /* Spacing between fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px;    /* Readable font size */
+}
+/*  Submit & Google Login Button */
+
+
+/* General button styling */
+.modal button {
+    width: 100%;        /* Full width for easy access */
+    padding: 10px;      /* Spacing inside the button */
+    background: rgb(246, 236, 236); /* Light color */
+    color: black;       /* Text color */
+    border: none;       /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px;    /* Readable font */
+    cursor: pointer;    /* Pointer cursor for interaction */
+}
+
+
+/* Hover effect for login/register buttons */
+.modal button:hover {
+    background: #f47825; /* Darker orange color */
+    color: white;        /* White text on hover */
+}
+/* Google Authentication Button */
+.googleBtn {
+    width: 100%;         /* Full width */
+    padding: 10px;       /* Comfortable spacing */
+    background: #db4437; /* Google red color */
+    color: white;        /* White text */
+    border: none;        /* No border */
+    border-radius: 5px;  /* Smooth corners */
+    font-size: 16px;     /* Good size for readability */
+    cursor: pointer;     /* Clickable */
+    margin-top: 10px;    /* Spacing after login/register button */
+}
+/* Hover effect for Google button */
+.googleBtn:hover {
+    background: #c1351d; /* Darker red */
+}
+/*  Toggle Text (Login <-> Register)  */
+.modal p {
+    margin-top: 15px; /* Spacing from buttons */
+    color: #ff6600; /* Orange color */
+    cursor: pointer; /* Clickable */
+}
+/* Hover effect for toggle link */
+.modal p:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+/* Error messages displayed for invalid login credentials */
+.error {
+    color: red;          /* Red text for errors */
+    margin-bottom: 10px; /* Space before the next element */
+    font-size: 14px;     /* Smaller font size */
+    text-align: center;  /* Centered text */
+}
+/* When buttons are disabled (e.g., during API calls) */
+button:disabled {
+    opacity: 0.7;        /* Make the button look faded */
+    cursor: not-allowed; /* Prevent clicking */
+}
