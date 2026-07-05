@@ -2,9 +2,11 @@ import trainImg from '../assets/train1.jpg';
 import { FaCalendarAlt, FaExchangeAlt, FaSuitcase, FaTrain } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import styles from '../styles/Home.module.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function Home() {
+    const navigate = useNavigate();
   return (
     <>
         {/*  Background image of a train */}
@@ -86,7 +88,7 @@ function Home() {
 
                     <div className={styles.buttonGroup}>
                         <button className={styles.searchButton} type="submit">Search Trains</button>
-                        <button type="submit">Show All Trains</button>
+                        <button type="submit" onClick={() => navigate('/trainlist')}>Show All Trains</button>
                     </div>
                 </form>
             </div>
