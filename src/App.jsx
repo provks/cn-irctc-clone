@@ -7,6 +7,7 @@ import ContactPage from "./pages/ContactPage"
 import LoginModal from "./pages/LoginModal"
 import RegisterModal from "./pages/RegisterModal"
 import TrainSearchResult from "./pages/TrainSearchResult"
+import TrainDetails from "./pages/TrainDetails"
 
 // App component is the main component of the application. It contains the Router, Navbar, Footer, and the Routes for different pages.
 const RouteContentManager = () => {
@@ -21,6 +22,7 @@ const RouteContentManager = () => {
         <Route path="/bookings" element={<BookingPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/trainlist" element={<TrainSearchResult />} />
+        <Route path="/train-detail/:train_number" element={<TrainDetails />} />
         <Route path="/login" element={<LoginModal 
         isOpen={true}
         onClose={() => navigate(-1)}
