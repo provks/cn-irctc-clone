@@ -3,7 +3,8 @@ import { BsTrainFront } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../styles/TrainDetails.module.css"
 
-const API_URL = "https://mocki.io/v1/4582f754-3228-4f96-a2a7-3206d65fc261";
+// const API_URL = "https://mocki.io/v1/4582f754-3228-4f96-a2a7-3206d65fc261";
+const API_URL = "https://mocki.io/v1/db673a82-b0e7-449b-bdfb-0399ae201044";
 
 const TrainDetails = () => {
   const { train_number } = useParams();
