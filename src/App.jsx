@@ -22,7 +22,7 @@ const RouteContentManager = () => {
         <Route path="/bookings" element={<BookingPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/trainlist" element={<TrainSearchResult />} />
-        <Route path="/train-detail/:train_number" element={<TrainDetails />} />
+        <Route path="/train-details/:train_number" element={<TrainDetails />} />
         <Route path="/login" element={<LoginModal 
         isOpen={true}
         onClose={() => navigate(-1)}

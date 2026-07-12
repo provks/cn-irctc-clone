@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsTrainFront } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
+import styles from "../styles/TrainDetails.module.css"
 
 const API_URL = "https://mocki.io/v1/4582f754-3228-4f96-a2a7-3206d65fc261";
 
