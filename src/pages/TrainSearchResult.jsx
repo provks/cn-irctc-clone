@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import ModifySearch from "../components/ModifySearch";
 // import {useAuth} from "../context/AuthContext";
 import styles from "../styles/TrainSearchResult.module.css";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "https://mocki.io/v1/0eb9aeed-eb15-42e5-805c-fbf8bbee39ce"; // to fetch the train data from the mock API
 
 const TrainSearchResult = () => {
+    const navigate = useNavigate();
     // const {currentUser} = useAuth();   // Access the user object from the authentication context
     const [trainData, setTrainData] = useState([]); // State to hold the fetched train data
+
+    const handleDetailsClick = (trainNumber) => {
+      navigate(`/train-details/${trainNumber}`)
+    }
 
     useEffect(() => {
         // Fetch train data from the mock API
@@ -117,8 +123,8 @@ const TrainSearchResult = () => {
                   )}
                 </div>
                 <div className={styles.actionButtons}>
-                  <button className={styles.bookNowButton}>Book Now</button>
-                  <button className={styles.otherDatesButton}>
+                  <button className={styles.bookNowButton} onClick={() => handleDetailsClick(train.train_number)}>Book Now</button>
+                  <button className={styles.otherDatesButton} onClick={() => handleDetailsClick(train.train_number)}>
                     Other Dates
                   </button>
                 </div>
