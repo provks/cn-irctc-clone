@@ -1,15 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/ModifySearch.module.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ModifySearch = () => {
     // State to manage the search parameters
+    const location = useLocation();
+
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useState({
-        from: '',
-        to: '',
-        date: '',
-        travelClass: '',
-        quota: '',
-    });
+        from: "",
+        to: "",
+        date: "",
+        travelClass: "",
+        quota: "General",
+    })
+
+    // extract/get values from the URL params
+    useEffect(() => {
+        const query = new URLSearchParams(location.search);
+
+        setSearchParams({
+            from: query.get('from') || "",
+            to:  query.get('to') || "",
+            date: query.get('date') || "",
+            travelClass: query.get('class') || "",
+            quota: query.get('quota') || "General",
+        })
+    }, [location.search]);
+
+    // handle modify search
+    const handleSearch = (e) => {
+        e.preventDefault();
+        // basic validations
+        if (!searchParams.to || !searchParams.from) {
+            alert("Please endth both source and destination stations");
+            return;
+        }
+        navigate(`/trainlist?from=${encodeURIComponent(searchParams.from)}&to=${encodeURIComponent(searchParams.to)}&date=${searchParams.date}&class=${encodeURIComponent(searchParams.travelClass)}&quota=${encodeURIComponent(searchParams.quota)}`);
+    }
+
 
     return (
         <div className={styles.searchForm}>
@@ -32,7 +61,7 @@ const ModifySearch = () => {
                     <option value="tatkal">Tatkal</option>
                 </select>
 
-                <button type="submit">Search</button>
+                <button type="submit" onClick={handleSearch}>Search</button>
             </form>
         </div>
     );

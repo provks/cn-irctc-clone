@@ -3,10 +3,33 @@ import { FaCalendarAlt, FaExchangeAlt, FaSuitcase, FaTrain } from "react-icons/f
 import { BiSolidCategory } from "react-icons/bi";
 import styles from '../styles/Home.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 function Home() {
     const navigate = useNavigate();
+    const [from, setFrom] = useState("");
+    const [to, setTo] = useState("");
+    const [date, setDate] = useState("");
+    const [travelClass, setTravelClass] = useState("All Classes");
+    const [quota, setQuota] = useState("General");
+    
+    const handleSwapStaions = () => {
+        const temp = to;
+        setTo(from);
+        setFrom(temp);
+    }
+
+    const handleSearchTrainsClick = (e) => {
+        e.preventDefault();
+
+        if (!to || !from) {
+            alert("Please fill both source and destination stations");
+        }
+
+        navigate(`/trainlist?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${date}&class=${encodeURIComponent(travelClass)}&quota=${encodeURIComponent(quota)}`);
+    }
+
   return (
     <>
         {/*  Background image of a train */}
@@ -23,16 +46,31 @@ function Home() {
                         {/* Source Station */}
                         <div className={styles.inputWrapper}>
                             <FaTrain className={styles.icon} />
-                            <input className={styles.input} type="text" id="source" name="source" placeholder="Enter source station" required />
+                            <input className={styles.input} 
+                            type="text" 
+                            id="source" 
+                            name="source" 
+                            value={from}
+                            onChange={(e) => setFrom(e.target.value)}
+                            placeholder="Enter source station" 
+                            required />
                         </div>
 
                         {/* Swap Stations */}
-                        <button className={styles.swapButton}><FaExchangeAlt/></button>
+                        <button className={styles.swapButton} onClick={handleSwapStaions}><FaExchangeAlt/></button>
 
                         {/* Destination Station */}
                         <div className={styles.inputWrapper}>
                             <FaTrain className={styles.icon} />
-                            <input className={styles.input} type="text" id="destination" name="destination" placeholder="Enter destination station" required />
+                            <input 
+                            className={styles.input} 
+                            type="text" 
+                            id="destination" 
+                            name="destination"
+                            value={to}
+                            onChange={(e) => setTo(e.target.value)}
+                            placeholder="Enter destination station" 
+                            required />
                         </div>
                     </div>
 
@@ -40,13 +78,29 @@ function Home() {
                     <div className={styles.inputGroup}>
                         <div className={styles.inputWrapper}>
                             <FaCalendarAlt className={styles.icon} />
-                            <input className={styles.input} type="date" id="date" name="date" placeholder="Date of Journey" required />
+                            <input 
+                            className={styles.input} 
+                            type="date" 
+                            id="date" 
+                            name="date" 
+                            placeholder="Date of Journey"
+                            value={date}
+                            min={new Date().toISOString().split('T')[0]}
+                            max={new Date(new Date().setMonth(new Date().getMonth() + 3)).toISOString().split('T')[0]}  // 3 months from today
+                            onChange={(e) => setDate(e.target.value)}
+                            required />
                         </div>
 
                         {/* Class Selection */}
                         <div className={styles.inputWrapper}>
                             <FaSuitcase className={styles.icon} />
-                            <select className={styles.select} id="class" name="class" required>
+                            <select 
+                            className={styles.select} 
+                            id="class" 
+                            name="class" 
+                            value={travelClass}
+                            onChange={(e) => setTravelClass(e.target.value)}
+                            required>
                                 <option value="">All Classes</option>
                                 <option value="sleeper">Sleeper</option>
                                 <option value="ac3">AC 3 Tier</option>
@@ -60,7 +114,12 @@ function Home() {
                     <div className={styles.inputGroup}>
                         <div className={styles.inputWrapper}>
                             <BiSolidCategory className={styles.icon} />
-                            <select className={styles.select} name="quota" required>
+                            <select 
+                            className={styles.select} 
+                            value={quota}
+                            onChange={(e) => setQuota(e.target.value)}
+                            name="quota" 
+                            required>
                                 <option value="general">General</option>
                                 <option value="ladies">Ladies</option>
                                 <option value="tatkal">Tatkal</option>
@@ -87,7 +146,7 @@ function Home() {
                     </div>
 
                     <div className={styles.buttonGroup}>
-                        <button className={styles.searchButton} type="submit">Search Trains</button>
+                        <button className={styles.searchButton} onClick={handleSearchTrainsClick} type="submit">Search Trains</button>
                         <button type="submit" onClick={() => navigate('/trainlist')}>Show All Trains</button>
                     </div>
                 </form>
