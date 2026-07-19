@@ -61,9 +61,10 @@ function LoginModal({ isOpen, onClose, switchToRegister, onLogin }) {
     // For Overlay background
     <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`} onClick={onClose}>
       {/* Modal content container */}
-      <div className={styles.modal}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={onClose}><FaRegWindowClose /></button>
         <h3>Login</h3>
+        {error && <p className={styles.error}>{error}</p>}
         <form onSubmit={handleEmailLogin}>
           <input
             type="email"

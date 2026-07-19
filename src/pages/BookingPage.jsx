@@ -22,12 +22,15 @@ function BookingPage() {
     phone: ''
   })
 
+  console.log(location);
+  console.log(location.state);
+
   // check train details
   useEffect(() => {
     // check for detail details from navigation state
     if (location.state?.trainNumber) {
       // price info from navigation state
-      const priceData = location.state.price || {};
+      const priceData = location.state?.price || {};
       setClassPrice(priceData);
 
       // get available classes
@@ -35,8 +38,10 @@ function BookingPage() {
       setAvailableClasses(classes);
 
       // set default value for class (selected class, first class)
-      const defaultClass = location.state?.travelClass || classes[0];
-      setSelectedClass(defaultClass);
+      if (classes.length > 0) {
+        const defaultClass = location.state?.travelClass || classes[0];
+        setSelectedClass(defaultClass);
+      }
 
       // set train details from navigation state
       setTrainDetails({
@@ -55,7 +60,7 @@ function BookingPage() {
       //  No train selected, might want to handle this case later
       console.log("No train details provided");
     }
-  })
+  }, [location.state])
 
   // handle class change for selected class
   const handleClassChange = (e) => {
@@ -306,7 +311,7 @@ function BookingPage() {
         {/* payment section */}
         <div className={styles.payementSection}>
           <h3>Payment Summary</h3>
-          <div className={style.paymentDetails}>
+          <div className={styles.paymentDetails}>
             <div>
               <span>Base Fare ({selectedClass} x {passengers.length}):</span>
               <span>₹{fareDetails.baseFare}</span>

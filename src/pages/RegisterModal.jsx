@@ -57,7 +57,7 @@ function RegisterModal({ isOpen, onClose, switchToLogin }) {
     // For Overlay background
     <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`} onClick={onClose}>
       {/* Modal content container */} 
-      <div className={styles.modal}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={onClose}><FaRegWindowClose /></button>
         <h3>Register</h3>
         <form onSubmit={handleRegister}>

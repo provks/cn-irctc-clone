@@ -19,14 +19,14 @@ const RouteContentManager = () => {
     <div>
       <Routes location={location.pathname} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/bookings" element={<BookingPage />} />
+        <Route path="/booking" element={<BookingPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/trainlist" element={<TrainSearchResult />} />
         <Route path="/train-details/:train_number" element={<TrainDetails />} />
         <Route path="/login" element={<LoginModal 
         isOpen={true}
         onClose={() => navigate(-1)}
-        // onLogin={() => {}}
+        onLogin={() => {}}
         switchToRegister={() => {}}
          />} />
         <Route path="/register" element={<RegisterModal />} />

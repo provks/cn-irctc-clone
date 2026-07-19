@@ -27,7 +27,7 @@ function Navbar() {
 
     // handle login user
     const handleLogin = () => {
-        setIsLoggedIn(true);
+        setIsLoginOpen(true);
     }
     const handleRegister = () => {
         setIsRegisterOpen(true);
@@ -38,14 +38,15 @@ function Navbar() {
     }
 
     // handle click on bookings link
-    // const handleBookingsClick = (e) => {
-    //     if (!isLoggedIn) {
-    //         e.preventDefault();
-    //         alert("Please login to view your bookings.");
-    //     }
-    //     // navigate to bookings page if logged in
+    const handleBookingsClick = () => {
+        // if (!isLoggedIn) {
+        //     e.preventDefault();
+        //     alert("Please login to view your bookings.");
+        // }
+        // navigate to bookings page if logged in
+        navigate('/booking');
 
-    // }
+    }
 
   return (
     <>
@@ -64,13 +65,14 @@ function Navbar() {
 
         {/* Navigation links */}
         <div className={styles.navLinks}>
-          <a href="/booking" className={styles.navLink}>
+          {/* <a href="/booking" className={styles.navLink}>
             Bookings
-          </a>
-          {/* <span className={styles.navLink} onClick={handleBookingsClick}>Bookings</span> */}
-          <a href="/contact" className={styles.navLink}>
+          </a> */}
+          <span className={styles.navLink} onClick={handleBookingsClick}>Bookings</span>
+          <span className={styles.navLink} onClick={handleBookingsClick}>Contact Us</span>
+          {/* <a href="/contact" className={styles.navLink}>
             Contact US
-          </a>
+          </a> */}
         </div>
 
         {/* Show date and time */}
@@ -113,6 +115,7 @@ function Navbar() {
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onLogin={handleLogin}
+        onLogin={() => {}}
         switchToRegister={() => {
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
