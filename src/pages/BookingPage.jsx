@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {useAuth} from '../context/AuthContext';
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/BookingPage.module.css"
 
 
@@ -21,6 +21,7 @@ function BookingPage() {
     email: currentUser?.email || '',
     phone: ''
   })
+  const navigate = useNavigate();
 
   console.log(location);
   console.log(location.state);
@@ -61,6 +62,11 @@ function BookingPage() {
       console.log("No train details provided");
     }
   }, [location.state])
+
+  if (!trainDetails?.trainNumber) {
+    console.log("inside train details check", trainDetails);
+    return <Navigate to='/'></Navigate>
+  }
 
   // handle class change for selected class
   const handleClassChange = (e) => {

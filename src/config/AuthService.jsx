@@ -1,4 +1,11 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { 
+    createUserWithEmailAndPassword, 
+    onAuthStateChanged, 
+    signInWithEmailAndPassword, 
+    signInWithPopup, 
+    signOut, 
+    updateProfile 
+} from "firebase/auth";
 import { auth, googleProvider } from "./firebaseConfig";
 
 // Register a new user with email and password
@@ -53,7 +60,7 @@ export const logout = async () => {
     }
 }
 
-// Listern for auth state changes
+// Listen for auth state changes
 export const observeAuthState = (callback) => {
     return onAuthStateChanged(auth, callback); // triggers the callback when the user logs in or logs out
 }

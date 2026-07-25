@@ -8,6 +8,7 @@ import LoginModal from "./pages/LoginModal"
 import RegisterModal from "./pages/RegisterModal"
 import TrainSearchResult from "./pages/TrainSearchResult"
 import TrainDetails from "./pages/TrainDetails"
+import { AuthProvider } from "./context/AuthContext"
 
 // App component is the main component of the application. It contains the Router, Navbar, Footer, and the Routes for different pages.
 const RouteContentManager = () => {
@@ -39,15 +40,17 @@ function App() {
 
   return (
     <>
-    <BrowserRouter>
-      <Navbar></Navbar>
-      {/* // This component manages the content based on the current route */}
-      <RouteContentManager /> 
-      <Footer></Footer>
-
-    </BrowserRouter>
+      {/* Wrapping the entire app with authprovider */}
+      <AuthProvider>
+        <BrowserRouter>
+          <Navbar></Navbar>
+          {/* // This component manages the content based on the current route */}
+          <RouteContentManager />
+          <Footer></Footer>
+        </BrowserRouter>
+      </AuthProvider>
     </>
-  )
+  );
 }
 
 export default App

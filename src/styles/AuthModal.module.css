@@ -37,8 +37,8 @@
 /* Close button styling */
 .closeBtn {
     position: absolute;  /* Positioned inside the modal */
-    right: 10px;        /* Distance from the right */
-    top: 10px;         /* Distance from the top */
+    right: 0;        /* Distance from the right */
+    top: -10px;         /* Distance from the top */
     background: none;   /* No background color */
     border: none;       /* No border */
     font-size: 20px;    /* Bigger size for easy clicking */

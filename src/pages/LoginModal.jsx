@@ -3,6 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import styles from "../styles/AuthModal.module.css";
 import { FaRegWindowClose } from "react-icons/fa";
 import { loginWithEmail, loginWithGoogle } from "../config/AuthService";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 function LoginModal({ isOpen, onClose, switchToRegister, onLogin }) {
@@ -13,19 +14,28 @@ function LoginModal({ isOpen, onClose, switchToRegister, onLogin }) {
   const [error, setError] = useState("");
   // hangling loading state
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+    // Get return path from location state or default to '/'
+  const returnPath = location.state?.returnPath || "/";
 
   const handleEmailLogin = async (e) => {
     e.preventDefault(); // prevent the default form submission
-    
     setError("");
     setLoading(true);
     
     try {
       const user = await loginWithEmail(email, password);
       // clear the email and password fields after login success
+      if (onLogin) onLogin();
+      console.log(user);
       setEmail("");
       setPassword("");
-      if (onLogin) onLogin();
+      onClose();
+
+      // navigate to return path after successful login
+      navigate(returnPath);
     } catch (error) {
       setError(error.message);
     } finally {

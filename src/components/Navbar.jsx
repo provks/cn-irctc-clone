@@ -7,6 +7,8 @@ import { IoIosNotifications } from "react-icons/io";
 import { IoMdHelp } from "react-icons/io";
 import LoginModal from '../pages/LoginModal';
 import RegisterModal from '../pages/RegisterModal';
+import { useAuth } from '../context/AuthContext';
+import { logout } from '../config/AuthService';
 
 
 function Navbar() {
@@ -15,8 +17,10 @@ function Navbar() {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+    const {currentUser, loading } = useAuth();
     const navigate = useNavigate();
 
+    // Update time with real time every second.
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentTime(new Date());
@@ -25,27 +29,42 @@ function Navbar() {
         return () => clearInterval(interval);
     }, []);
 
+    if (currentUser && !isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+
     // handle login user
-    const handleLogin = () => {
+    const handleLoginClick = () => {
         setIsLoginOpen(true);
     }
-    const handleRegister = () => {
+    const handleRegisterClick = () => {
         setIsRegisterOpen(true);
     }
 
-    const handleLogout = () => {
-        setIsLoggedIn(false);
+    const handleLogout = async() => {
+        try {
+          await logout();
+          navigate('/');
+          setIsLoggedIn(false);
+        } catch (error) {
+          console.error("Logout failed", error);
+        }
     }
 
     // handle click on bookings link
     const handleBookingsClick = () => {
-        // if (!isLoggedIn) {
+        if (!isLoggedIn) {
         //     e.preventDefault();
-        //     alert("Please login to view your bookings.");
-        // }
+            alert("Please login to view your bookings.");
+            return;
+        }
         // navigate to bookings page if logged in
         navigate('/booking');
 
+    }
+
+    const handleContactClick = () => {
+      navigate('/contact');
     }
 
   return (
@@ -69,7 +88,7 @@ function Navbar() {
             Bookings
           </a> */}
           <span className={styles.navLink} onClick={handleBookingsClick}>Bookings</span>
-          <span className={styles.navLink} onClick={handleBookingsClick}>Contact Us</span>
+          <span className={styles.navLink} onClick={handleContactClick}>Contact Us</span>
           {/* <a href="/contact" className={styles.navLink}>
             Contact US
           </a> */}
@@ -94,17 +113,17 @@ function Navbar() {
         {/* Button for Login/Logout and Register */}
         {isLoggedIn ? (
           <>
-            <span>Hello, User!</span>
+            <span>Hello, {currentUser.displayName || "User"}!</span>
             <button className={styles.authButton} onClick={handleLogout}>
               Logout
             </button>
           </>
         ) : (
           <div>
-            <button className={styles.authButton} onClick={handleLogin}>
+            <button className={styles.authButton} onClick={handleLoginClick}>
               Login
             </button>
-            <button className={styles.registerButton} onClick={handleRegister}>
+            <button className={styles.registerButton} onClick={handleRegisterClick}>
               Register
             </button>
           </div>
@@ -114,7 +133,6 @@ function Navbar() {
       <LoginModal
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
-        onLogin={handleLogin}
         onLogin={() => {}}
         switchToRegister={() => {
           setIsLoginOpen(false);
