@@ -1,0 +1,284 @@
+{
+"TrainSearchResultAPI": {
+  "data": [
+    {
+      "train_number": "12345",
+      "train_name": "Rajdhani Express",
+      "source": "New Delhi (NDLS)",
+      "destination": "Mumbai Central (MMCT)",
+      "departure_time": "08:10",
+      "arrival_time": "14:25",
+      "duration": "30:15",
+      "days_of_operation": [
+        "Monday",
+        "Wednesday",
+        "Friday"
+      ],
+      "price": {
+        "AC1": 4500,
+        "AC2": 3200,
+        "AC3": 2200,
+        "SL": 800
+      }
+    },
+    {
+      "train_number": "22411",
+      "train_name": "Shatabdi Express",
+      "source": "Bengaluru City (SBC)",
+      "destination": "Mysuru Junction (MYS)",
+      "departure_time": "06:00",
+      "arrival_time": "10:30",
+      "duration": "04:30",
+      "days_of_operation": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "price": {
+        "chair_car": 650,
+        "executive_class": 1200
+      }
+    },
+    {
+      "train_number": "22678",
+      "train_name": "Superfast Special",
+      "source": "Kolkata Chitpur (KOA)",
+      "destination": "Howrah Junction (HWH)",
+      "departure_time": "21:45",
+      "arrival_time": "05:10",
+      "duration": "07:25",
+      "days_of_operation": [
+        "Tuesday",
+        "Thursday",
+        "Saturday"
+      ],
+      "price": {
+        "AC3": 1800,
+        "SL": 600
+      }
+    },
+    {
+      "train_number": "11005",
+      "train_name": "Coastal Mail",
+      "source": "Chennai Central (MAS)",
+      "destination": "Mangalore Central (MAQ)",
+      "departure_time": "13:20",
+      "arrival_time": "22:50",
+      "duration": "09:30",
+      "days_of_operation": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "price": {
+        "AC2": 2800,
+        "AC3": 1900,
+        "SL": 700
+      }
+    }
+  ]
+},
+
+
+
+"trainDetailsAPI" : {
+  "data": [
+    {
+      "train_number": "12345",
+      "train_name": "Rajdhani Express",
+      "source": "New Delhi (NDLS)",
+      "destination": "Mumbai Central (MMCT)",
+      "departure_time": "08:10",
+      "arrival_time": "14:25",
+      "duration": "30:15",
+      "days_of_operation": [
+        "Monday",
+        "Wednesday",
+        "Friday"
+      ],
+      "price": {
+        "1A": 4500,
+        "2A": 3200,
+        "3A": 2200,
+        "SL": 800
+      },
+      "route": [
+        {
+          "station_name": "New Delhi (NDLS)",
+          "arrival_time": "N/A",
+          "departure_time": "08:10"
+        },
+        {
+          "station_name": "Kota Junction (KOTA)",
+          "arrival_time": "13:20",
+          "departure_time": "13:30"
+        },
+        {
+          "station_name": "Ratlam Junction (RTM)",
+          "arrival_time": "17:15",
+          "departure_time": "17:20"
+        },
+        {
+          "station_name": "Vadodara Junction (BRC)",
+          "arrival_time": "20:40",
+          "departure_time": "20:50"
+        },
+        {
+          "station_name": "Surat (ST)",
+          "arrival_time": "23:10",
+          "departure_time": "23:15"
+        },
+        {
+          "station_name": "Mumbai Central (MMCT)",
+          "arrival_time": "14:25",
+          "departure_time": "N/A"
+        }
+      ]
+    },
+    {
+      "train_number": "22411",
+      "train_name": "Shatabdi Express",
+      "source": "Bengaluru City (SBC)",
+      "destination": "Mysuru Junction (MYS)",
+      "departure_time": "06:00",
+      "arrival_time": "10:30",
+      "duration": "04:30",
+      "days_of_operation": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "price": {
+        "CC": 650,
+        "EC": 1200
+      },
+      "route": [
+        {
+          "station_name": "Bengaluru City (SBC)",
+          "arrival_time": "N/A",
+          "departure_time": "06:00"
+        },
+        {
+          "station_name": "Kengeri (KGI)",
+          "arrival_time": "06:24",
+          "departure_time": "06:25"
+        },
+        {
+          "station_name": "Mandya (MYA)",
+          "arrival_time": "07:38",
+          "departure_time": "07:40"
+        },
+        {
+          "station_name": "Mysuru Junction (MYS)",
+          "arrival_time": "10:30",
+          "departure_time": "N/A"
+        }
+      ]
+    },
+    {
+      "train_number": "22678",
+      "train_name": "Superfast Special",
+      "source": "Kolkata Chitpur (KOA)",
+      "destination": "Howrah Junction (HWH)",
+      "departure_time": "21:45",
+      "arrival_time": "05:10",
+      "duration": "07:25",
+      "days_of_operation": [
+        "Tuesday",
+        "Thursday",
+        "Saturday"
+      ],
+      "price": {
+        "3A": 1800,
+        "SL": 600
+      },
+      "route": [
+        {
+          "station_name": "Kolkata Chitpur (KOA)",
+          "arrival_time": "N/A",
+          "departure_time": "21:45"
+        },
+        {
+          "station_name": "Bandrael Junction (BDC)",
+          "arrival_time": "23:05",
+          "departure_time": "23:10"
+        },
+        {
+          "station_name": "Barddhaman Junction (BWN)",
+          "arrival_time": "01:22",
+          "departure_time": "01:25"
+        },
+        {
+          "station_name": "Howrah Junction (HWH)",
+          "arrival_time": "05:10",
+          "departure_time": "N/A"
+        }
+      ]
+    },
+    {
+      "train_number": "11005",
+      "train_name": "Coastal Mail",
+      "source": "Chennai Central (MAS)",
+      "destination": "Mangalore Central (MAQ)",
+      "departure_time": "13:20",
+      "arrival_time": "22:50",
+      "duration": "09:30",
+      "days_of_operation": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "price": {
+        "2A": 2800,
+        "3A": 1900,
+        "SL": 700
+      },
+      "route": [
+        {
+          "station_name": "Chennai Central (MAS)",
+          "arrival_time": "N/A",
+          "departure_time": "13:20"
+        },
+        {
+          "station_name": "Katpadi Junction (KPD)",
+          "arrival_time": "15:25",
+          "departure_time": "15:30"
+        },
+        {
+          "station_name": "Salem Junction (SA)",
+          "arrival_time": "18:10",
+          "departure_time": "18:15"
+        },
+        {
+          "station_name": "Erode Junction (ED)",
+          "arrival_time": "19:20",
+          "departure_time": "19:25"
+        },
+        {
+          "station_name": "Palakkad Junction (PGT)",
+          "arrival_time": "21:40",
+          "departure_time": "21:45"
+        },
+        {
+          "station_name": "Mangalore Central (MAQ)",
+          "arrival_time": "22:50",
+          "departure_time": "N/A"
+        }
+      ]
+    }
+  ]
+}
+
+}

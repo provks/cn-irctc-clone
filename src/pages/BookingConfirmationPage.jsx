@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
+import styles from '../styles/BookingConfirmationPage.module.css';
 
 const BookingConfirmationPage = () => {
   const navigate = useNavigate();
@@ -9,19 +10,19 @@ const BookingConfirmationPage = () => {
 //   handle case: booking data is unavailable, show some error message
   if (!bookingId || !bookingDetails) {
     return (
-        <div className={style.container}>
+        <div className={styles.container}>
             <h2>Booking Confirmation!</h2>
             <p>No booking information found. Please try booking again!</p>
-            <button className={styles.button} onClick={() => {navigate(`/trainlist`)}}>Return to Trian Search</button>
+            <button className={styles.button} onClick={() => navigate(`/trainlist`)}>Return to Trian Search</button>
         </div>
     )
   }
 
   return (
-    <div className={style.container}>
+    <div className={styles.container}>
       {/* Booking confirmation */}
       <div className={styles.confirmationCard}>
-        <div className={styels.header}>
+        <div className={styles.header}>
           <h2>Booking Confirmed!</h2>
           <div className={styles.bookingId}>
             <span>Booking ID:</span>
@@ -86,7 +87,7 @@ const BookingConfirmationPage = () => {
         <h3>Contact Information</h3>
         <div className={styles.contactInfo}>
             <div>Email: {bookingDetails.contactInfo.email}</div>
-            <div>Phone: {bookingDetails.contactInfo.email}</div>
+            <div>Phone: {bookingDetails.contactInfo.phone}</div>
         </div>
       </div>
 

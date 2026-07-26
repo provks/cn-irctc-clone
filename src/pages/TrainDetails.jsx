@@ -61,7 +61,7 @@ const TrainDetails = () => {
 
     // create a formatted date for today (app state)
     const today = new Date();
-    const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+    const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
     // get source and desitnation station name
     const source = trainDetails.route[0].station_name;
@@ -69,7 +69,7 @@ const TrainDetails = () => {
 
     // TODO: check why we are not getting state data in BOokings page
     const state =  {
-        trainNumerb: trainDetails.train_number,
+        trainNumber: trainDetails.train_number,
         trainName: trainDetails.train_name,
         from: source,
         to: destination,

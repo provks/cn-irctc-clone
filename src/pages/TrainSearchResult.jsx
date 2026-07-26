@@ -4,7 +4,8 @@ import ModifySearch from "../components/ModifySearch";
 import styles from "../styles/TrainSearchResult.module.css";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "https://mocki.io/v1/0eb9aeed-eb15-42e5-805c-fbf8bbee39ce"; // to fetch the train data from the mock API
+// const API_URL = "https://mocki.io/v1/0eb9aeed-eb15-42e5-805c-fbf8bbee39ce"; // to fetch the train data from the mock API
+const API_URL = "https://mocki.io/v1/2ba7564f-1a03-45b4-8f57-74ea333687c8"; // to fetch the train data from the mock API
 
 const TrainSearchResult = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const TrainSearchResult = () => {
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched train data:", data);
-                setTrainData(data.data); // Set the fetched data to state
+                setTrainData(data); // Set the fetched data to state
             })
             .catch(error => {
                 console.error("Error fetching train data:", error);

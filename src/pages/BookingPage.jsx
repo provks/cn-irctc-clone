@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import {useAuth} from '../context/AuthContext';
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/BookingPage.module.css"
+import { db } from '../config/firebaseConfig';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
 
 
 function BookingPage() {
@@ -18,13 +20,14 @@ function BookingPage() {
     berth: 'No preference'
   }]);
   const [contactInfo, setContactInfo] = useState({
-    email: currentUser?.email || '',
+    email: currentUser?.currentUser?.email || '',
     phone: ''
   })
   const navigate = useNavigate();
 
   console.log(location);
   console.log(location.state);
+  console.log("Booking page currentUser", currentUser);
 
   // check train details
   useEffect(() => {
@@ -54,7 +57,7 @@ function BookingPage() {
         departureTime: location.state?.departureTime,
         arrivalTime: location.state?.arrivalTime,
         travelClass: location.state?.travelClass,
-        duration: location.state?.duration,
+        duration: location.state?.duration || "00:00",
         quota: location.state?.quota || 'General'
       })
     } else {
@@ -62,11 +65,6 @@ function BookingPage() {
       console.log("No train details provided");
     }
   }, [location.state])
-
-  if (!trainDetails?.trainNumber) {
-    console.log("inside train details check", trainDetails);
-    return <Navigate to='/'></Navigate>
-  }
 
   // handle class change for selected class
   const handleClassChange = (e) => {
@@ -77,8 +75,8 @@ function BookingPage() {
   const updatePassenger = (index, field, value) => {
     const updatedPassengers = [...passengers];
     updatedPassengers[index][field] = value;
-    setPassengers[updatedPassengers];
-  }
+    setPassengers(updatedPassengers);
+  };
 
   // remove passenger
   const removePassenger = (index) => {
@@ -129,6 +127,75 @@ function BookingPage() {
       ...contactInfo,
       [field]: value
     })
+  }
+
+  // handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // validate form data (passenger, contactInfo)
+    const isFormDataValid = passengers.every(p => p.name && p.age && p.gender) && contactInfo.email && contactInfo.phone;
+    
+    if (!isFormDataValid) {
+      alert("Please fill in all the required data");
+      return;
+    }
+
+    // create booking data in the database
+    try {
+      // In real app, you would submit booking infor to the backend server
+      const bookingData = {
+        userId: currentUser.currentUser.uid,
+        trainDetails: {
+          ...trainDetails,
+          travelClass: selectedClass
+        },
+        passengers: passengers,
+        contactInfo: contactInfo,
+        paymentSummary: calculateTotalFare(),
+        status: "confirmed",
+        createdAt: serverTimestamp()  // function to get crrent timestamp from server
+      }
+      console.log("currentUser", currentUser.currentUser.uid);
+      console.log("bookingData", bookingData);
+
+      // store bookingData into databse
+      const bookingsRef = collection(db, "bookings");
+      const docRef =  await addDoc(bookingsRef, bookingData);
+
+      alert("Booking submitted successfully!");
+
+      // redirect user to payemnt/confirmation page
+      navigate('/booking-confirmation', {
+        state: {
+          bookingId: docRef.id,
+          bookingDetails: bookingData,
+        }
+      });
+    } catch (error) {
+      console.error("Error saving booking data to firestore:", error);
+      alert("Error confirming booking. Please try again later!");
+    }
+  }
+
+  const goBackToSearch = () => {
+    navigate('/trainlist');
+  };
+
+  if (!trainDetails) {
+    return (
+      <div className={styles.container}>
+        <h2>Booking Page</h2>
+        <p>No train selected. Please search for trains and select one to book.</p>
+        <button 
+          onClick={goBackToSearch}
+          className={styles.addButton}
+          style={{ marginTop: '20px' }}
+        >
+          Search Trains
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -188,7 +255,7 @@ function BookingPage() {
       </div>
 
       {/* Passenger Details */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={styles.passengerSection}>
           <h3>Passenger Details</h3>
           {passengers.map((passenger, index) => (
@@ -196,14 +263,12 @@ function BookingPage() {
               <h4>Passenger {index + 1}</h4>
               {/* Name */}
               <div className={styles.inputGroup}>
-                <label htmlFor="">
+                <label>
                   Name:
                   <input
                     type="text"
                     value={passenger.name}
-                    onChange={(e) =>
-                      updatePassenger(index, "name", e.target.value)
-                    }
+                    onChange={(e) => updatePassenger(index, "name", e.target.value)}
                     required
                     placeholder="Enter full name as per ID"
                   />
@@ -211,31 +276,27 @@ function BookingPage() {
               </div>
               {/* Age */}
               <div className={styles.inputGroup}>
-                <label htmlFor="">
+                <label>
                   Age:
                   <input
                     type="number"
                     value={passenger.age}
-                    onChange={(e) =>
-                      updatePassenger(index, "age", e.target.value)
-                    }
+                    onChange={(e) => updatePassenger(index, "age", e.target.value)}
                     required
                     placeholder="Enter your age in years"
-                    min={1}
-                    max={110}
+                    min="1"
+                    max="110"
                   />
                 </label>
               </div>
               {/* Gender */}
               <div className={styles.inputGroup}>
-                <label htmlFor="">
+                <label>
                   Gender:
                   <select
                     name="gender"
                     value={passenger.gender}
-                    onChange={(e) =>
-                      updatePassenger(index, "gender", e.target.value)
-                    }
+                    onChange={(e) => updatePassenger(index, "gender", e.target.value)}
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -245,14 +306,12 @@ function BookingPage() {
               </div>
               {/* Berth Preference */}
               <div className={styles.inputGroup}>
-                <label htmlFor="">
+                <label>
                   Berth Preference:
                   <select
                     name="bithPreference"
                     value={passenger.berth}
-                    onChange={(e) =>
-                      updatePassenger(index, "gender", e.target.value)
-                    }
+                    onChange={(e) => updatePassenger(index, "berth", e.target.value)}
                   >
                     <option value="lower">Lower</option>
                     <option value="middle">Middle</option>
@@ -261,7 +320,7 @@ function BookingPage() {
                 </label>
               </div>
               {/* Button to remove passenger (if more than 1 passenger) */}
-              {passenger.length > 1 && (
+              {passengers.length > 1 && (
                 <button
                   type="button"
                   className={styles.removeButton}
@@ -286,7 +345,7 @@ function BookingPage() {
           <h3>Contact Information</h3>
           {/* Email */}
           <div className={styles.inputGroup}>
-            <label htmlFor="">
+            <label>
               Email:
               <input
                 type="email"
@@ -299,7 +358,7 @@ function BookingPage() {
           </div>
           {/* phone */}
           <div className={styles.inputGroup}>
-            <label htmlFor="">
+            <label>
               Phone:
               <input
                 type="tel"
@@ -343,7 +402,7 @@ function BookingPage() {
 
         {/* terms section */}
         <div className={styles.termsSection}>
-          <label htmlFor="">
+          <label>
             <input type="checkbox" />
             I agree to the Terms and conditions with cancellation policy.
           </label>
